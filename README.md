@@ -1,0 +1,2 @@
+# mfp-react
+Microfrontends
