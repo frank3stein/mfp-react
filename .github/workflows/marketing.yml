@@ -14,13 +14,13 @@ defaults:
 
 jobs: 
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
 
     steps: 
       - uses: actions/checkout@v2
       - run: npm install
       - run: npm run build
-
+      - run: ls 
       - uses: shinyinc/action-aws-cli@v1.2
       - run: aws s3 sync dist s3://${{ secrets.AWS_S3_BUCKET }}/marketing/latest
         env:
