@@ -17,7 +17,7 @@ const prodConfig = {
       name: "container",
       remotes: {
         // assume the file path. so for each microfrontend, this structure should match
-        marketing: `marketing@${domain}/marketing/remoteEntry.js`,
+        marketing: `marketing@${domain}/marketing/latest/remoteEntry.js`,
       },
       shared: dependencies,
     }),
