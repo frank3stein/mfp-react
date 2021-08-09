@@ -9,7 +9,7 @@ export default () => {
 
   // in order to communicate with the marketing module we pass in an object
   useEffect(() => {
-    mount(ref.current, {
+    const { onParentNavigate } = mount(ref.current, {
       // location object has a pathname property, we will rename it while destructuring
       onNavigate: ({ pathname: nextPathname }) => {
         console.log(
@@ -19,7 +19,10 @@ export default () => {
         history.push(nextPathname);
       },
     });
-  });
+
+    // We need to listen for the changes and call the onParentNavigate
+    history.listen(onParentNavigate);
+  }, []);
 
   return <div ref={ref} />;
 };
