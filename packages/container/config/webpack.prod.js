@@ -19,6 +19,7 @@ const prodConfig = {
         // assume the file path. so for each microfrontend, this structure should match
         marketing: `marketing@${domain}/marketing/latest/remoteEntry.js`,
         auth: `auth@${domain}/auth/latest/remoteEntry.js`,
+        dashboard: `dashboard@${domain}/dashboard/latest/remoteEntry.js`,
       },
       shared: dependencies,
     }),

@@ -6,7 +6,7 @@ import App from "./App";
 // Mount function to start up the app
 
 // When we navigate to auth, we need to communicate the initial history with it, otherwise the route will not redirect to the path of the container
-const mount = (el, { onNavigate, defaultHistory, initialPath }) => {
+const mount = (el, { onNavigate, defaultHistory, initialPath, onSignIn }) => {
   const history =
     defaultHistory ||
     createMemoryHistory({
@@ -16,8 +16,8 @@ const mount = (el, { onNavigate, defaultHistory, initialPath }) => {
   if (onNavigate) {
     history.listen(onNavigate);
   }
-
-  ReactDOM.render(<App history={history} />, el);
+  // Mount function passes singin state to APP
+  ReactDOM.render(<App history={history} onSignIn={onSignIn} />, el);
 
   return {
     onParentNavigate({ pathname: nextPathname }) {

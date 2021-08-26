@@ -2,7 +2,7 @@ import { mount } from "auth/AuthApp";
 import React, { useRef, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 
-export default () => {
+export default ({ onSignIn }) => {
   const ref = useRef(null);
   const history = useHistory();
 
@@ -17,6 +17,11 @@ export default () => {
           history.push(nextPathname);
         }
       },
+      // We centralize the signin in the container. So we need to communicate with auth through the function
+      // onSignIn: () => {
+      //   onSignIn();
+      // },
+      onSignIn,
     });
 
     history.listen(onParentNavigate);
