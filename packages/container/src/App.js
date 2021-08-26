@@ -1,9 +1,10 @@
-import React, { lazy, Suspense, useState } from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import React, { lazy, Suspense, useState, useEffect } from "react";
+import { Router, Route, Switch, Redirect } from "react-router-dom";
 import {
   StylesProvider,
   createGenerateClassName,
 } from "@material-ui/core/styles";
+import { createBrowserHistory } from "history";
 
 // import MarketingApp from "./components/MarketingApp";
 const MarketingLazy = lazy(() => import("./components/MarketingApp"));
@@ -22,10 +23,19 @@ const generateClassName = createGenerateClassName({
 // import { mount } from 'marketing/Marketing'
 
 // console.log(mount)
+
+const history = createBrowserHistory();
 export default () => {
   const [isSignedIn, setIsSignedIn] = useState(false);
+
+  useEffect(() => {
+    if (isSignedIn) {
+      history.push(`/dashboard`);
+    }
+  }, [isSignedIn]);
   return (
-    <BrowserRouter>
+    // browser router to router https://www.udemy.com/course/microfrontend-course/learn/lecture/23275366#questions/14501458
+    <Router history={history}>
       <StylesProvider generateClassName={generateClassName}>
         <div>
           <Header
@@ -38,7 +48,10 @@ export default () => {
               <Route path="/auth">
                 <AuthLazy onSignIn={() => setIsSignedIn(true)} />
               </Route>
-              <Route path="/dashboard" component={DashboardLazy} />
+              <Route path="/dashboard">
+                {!isSignedIn && <Redirect to="/" />}
+                <DashboardLazy />
+              </Route>
               <Route path="/">
                 <MarketingLazy isSignedIn={isSignedIn} />
               </Route>
@@ -47,6 +60,6 @@ export default () => {
           {/* <MarketingApp /> */}
         </div>
       </StylesProvider>
-    </BrowserRouter>
+    </Router>
   );
 };
