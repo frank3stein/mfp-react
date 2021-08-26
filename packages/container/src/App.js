@@ -1,12 +1,14 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import {
   StylesProvider,
   createGenerateClassName,
 } from "@material-ui/core/styles";
 
-import MarketingApp from "./components/MarketingApp";
-import AuthApp from "./components/AuthApp";
+// import MarketingApp from "./components/MarketingApp";
+const MarketingLazy = lazy(() => import("./components/MarketingApp"));
+// import AuthApp from "./components/AuthApp";
+const AuthLazy = lazy(() => import("./components/AuthApp"));
 import Header from "./components/Header";
 
 // In this way we add another level of unique prefix to css so they wont clash when they are build.
@@ -23,11 +25,13 @@ export default () => {
       <StylesProvider generateClassName={generateClassName}>
         <div>
           <Header />
-          <Switch>
-            {/* so any route /auth/asdasdas goes to first route */}
-            <Route path="/auth" component={AuthApp} />
-            <Route path="/" component={MarketingApp} />
-          </Switch>
+          <Suspense fallback={<div>Loading...</div>}>
+            <Switch>
+              {/* so any route /auth/asdasdas goes to first route */}
+              <Route path="/auth" component={AuthLazy} />
+              <Route path="/" component={MarketingLazy} />
+            </Switch>
+          </Suspense>
           {/* <MarketingApp /> */}
         </div>
       </StylesProvider>
