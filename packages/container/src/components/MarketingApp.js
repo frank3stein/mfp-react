@@ -10,6 +10,7 @@ export default () => {
   // in order to communicate with the marketing module we pass in an object
   useEffect(() => {
     const { onParentNavigate } = mount(ref.current, {
+      initialPath: history.location.pathname,
       // location object has a pathname property, we will rename it while destructuring
       onNavigate: ({ pathname: nextPathname }) => {
         console.log(

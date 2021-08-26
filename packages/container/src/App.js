@@ -1,11 +1,12 @@
 import React from "react";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import {
   StylesProvider,
   createGenerateClassName,
 } from "@material-ui/core/styles";
 
 import MarketingApp from "./components/MarketingApp";
+import AuthApp from "./components/AuthApp";
 import Header from "./components/Header";
 
 // In this way we add another level of unique prefix to css so they wont clash when they are build.
@@ -22,7 +23,12 @@ export default () => {
       <StylesProvider generateClassName={generateClassName}>
         <div>
           <Header />
-          <MarketingApp />
+          <Switch>
+            {/* so any route /auth/asdasdas goes to first route */}
+            <Route path="/auth" component={AuthApp} />
+            <Route path="/" component={MarketingApp} />
+          </Switch>
+          {/* <MarketingApp /> */}
         </div>
       </StylesProvider>
     </BrowserRouter>
