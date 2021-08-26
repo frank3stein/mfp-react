@@ -11,6 +11,8 @@ const MarketingLazy = lazy(() => import("./components/MarketingApp"));
 const AuthLazy = lazy(() => import("./components/AuthApp"));
 import Header from "./components/Header";
 
+import Progress from "./components/Progress";
+
 // In this way we add another level of unique prefix to css so they wont clash when they are build.
 const generateClassName = createGenerateClassName({
   productionPrefix: "co",
@@ -25,7 +27,7 @@ export default () => {
       <StylesProvider generateClassName={generateClassName}>
         <div>
           <Header />
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<Progress />}>
             <Switch>
               {/* so any route /auth/asdasdas goes to first route */}
               <Route path="/auth" component={AuthLazy} />
