@@ -10,7 +10,7 @@ const prodConfig = {
   output: {
     // for cashing, so the file is always unique
     filename: "[name].[contenthash].js",
-    publicPath: "container/latest/",
+    publicPath: "/container/latest/",
   },
   plugins: [
     new ModuleFederationPlugin({
